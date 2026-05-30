@@ -12,4 +12,12 @@ public final class CurrencyFormatter {
 
         return String.format("$%.2f", amount);
     }
+
+    public static String formatNoSign(double amount){
+        if (amount < 0) {
+            return String.format("-%.2f", Math.abs(amount));
+        }
+
+        return String.format("%.2f", amount);
+    }
 }
