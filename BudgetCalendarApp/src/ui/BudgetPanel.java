@@ -293,7 +293,7 @@ public class BudgetPanel extends JPanel {
 
         JTextField editDateField = new JTextField(selectedTransaction.getDate().toString());
         JTextField editDescriptionField = new JTextField(selectedTransaction.getDescription());
-        JTextField editAmountField = new JTextField(CurrencyFormatter.format(selectedTransaction.getAmount()));
+        JTextField editAmountField = new JTextField(CurrencyFormatter.formatNoSign(selectedTransaction.getAmount()));
 
         JCheckBox editRecurringMonthlyCheckBox = new JCheckBox("Repeats monthly");
         editRecurringMonthlyCheckBox.setSelected(selectedTransaction.isRecurringMonthly());

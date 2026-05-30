@@ -370,7 +370,7 @@ public class CalendarPanel extends JPanel {
         clearTransactionForm();
         refreshView();
 
-        JOptionPane.showMessageDialog(this, "Budget entry added to " + selectedDate + ".");
+
     }
 
     private void updateFooter() {
