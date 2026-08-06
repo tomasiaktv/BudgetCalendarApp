@@ -135,7 +135,7 @@ public class DefaultBudgetService implements BudgetService {
         double balance = 0;
 
         for (Transaction transaction : transactions) {
-            if (transaction.getType().equals("Income")) {
+            if ("Income".equals(transaction.getType())) {
                 balance += transaction.getAmount();
             } else {
                 balance -= transaction.getAmount();
