@@ -49,25 +49,33 @@ public class CsvTransactionRepository implements TransactionRepository {
 
                 List<String> values = parseCsvLine(line);
 
-                if (values.size() == 5) {
-                    LocalDate date = LocalDate.parse(values.get(0));
-                    String description = values.get(1);
-                    double amount = Double.parseDouble(values.get(2));
-                    String type = values.get(3);
-                    String category = values.get(4);
+                if (values.size() != 5 && values.size() != 7) {
+                    continue;
+                }
 
-                    Transaction transaction = new Transaction(date, description, amount, type, category, false);
-                    transactions.add(transaction);
-                } else if (values.size() == 7) {
-                    String id = values.get(0);
-                    LocalDate date = LocalDate.parse(values.get(1));
-                    String description = values.get(2);
-                    double amount = Double.parseDouble(values.get(3));
-                    String type = values.get(4);
-                    String category = values.get(5);
-                    boolean recurringMonthly = Boolean.parseBoolean(values.get(6));
+                int idx = 0;
 
-                    Transaction transaction = new Transaction(
+                String id = values.size() == 7 ? values.get(idx++) : null;
+                LocalDate date = LocalDate.parse(values.get(idx++));
+                String description = values.get(idx++);
+                double amount = Double.parseDouble(values.get(idx++));
+                String type = values.get(idx++);
+                String category = values.get(idx++);
+                boolean recurringMonthly = values.size() == 7 ? Boolean.parseBoolean(values.get(idx++)) : false;
+
+                Transaction transaction;
+
+                if (id == null) {
+                    transaction = new Transaction(
+                            date,
+                            description,
+                            amount,
+                            type,
+                            category,
+                            recurringMonthly
+                    );
+                } else {
+                    transaction = new Transaction(
                             id,
                             date,
                             description,
@@ -76,9 +84,9 @@ public class CsvTransactionRepository implements TransactionRepository {
                             category,
                             recurringMonthly
                     );
-
-                    transactions.add(transaction);
                 }
+
+                transactions.add(transaction);
             }
 
         } catch (Exception exception) {
