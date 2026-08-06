@@ -6,18 +6,10 @@ public final class CurrencyFormatter {
     }
 
     public static String format(double amount) {
-        if (amount < 0) {
-            return String.format("-$%.2f", Math.abs(amount));
-        }
-
-        return String.format("$%.2f", amount);
+        return String.format("$%s%.2f", (amount < 0)?"-":"", Math.abs(amount));
     }
 
     public static String formatNoSign(double amount){
-        if (amount < 0) {
-            return String.format("-%.2f", Math.abs(amount));
-        }
-
-        return String.format("%.2f", amount);
+        return String.format("%s%.2f", (amount < 0)?"-":"", Math.abs(amount));
     }
 }
